@@ -24,7 +24,7 @@ jobs:
           python-version: '3.10'
 
       - name: Make setup script executable (Linux/Mac)
-        run: chmod +x setup.sh
+        run: chmod +x clients/gemini_live/setup_gemini_client.sh
 
       - name: Run setup script
-        run: ./setup.sh
+        run: ./clients/gemini_live/setup_gemini_client.sh
