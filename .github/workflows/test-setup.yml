@@ -1,0 +1,30 @@
+name: Test Setup Script
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run setup script on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python (if needed)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Make setup script executable (Linux/Mac)
+        run: chmod +x setup.sh
+
+      - name: Run setup script
+        run: ./setup.sh
