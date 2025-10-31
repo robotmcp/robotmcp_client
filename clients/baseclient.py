@@ -1,5 +1,4 @@
 import asyncio
-import os
 from dotenv import load_dotenv
 
 from contextlib import AsyncExitStack
@@ -9,7 +8,6 @@ from mcp.client.stdio import stdio_client
 
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain.agents import create_agent
-from langchain_cerebras import ChatCerebras
 from llm_store import get_llm
 
 load_dotenv()
@@ -49,7 +47,7 @@ class MCPClient:
         try:
             response = await self.agent.ainvoke(
                 {"messages": [{"role": "user", "content": query}]},
-                config={"recursion_limit": 50}
+                config={"recursion_limit": 50},
             )
             final_answer = response["messages"][-1].content
             print("Response:", final_answer)
@@ -62,7 +60,7 @@ class MCPClient:
         await self.exit_stack.aclose()
         print("MCP Client closed.")
 
-    async def run(self): 
+    async def run(self):
         await self.setup()
         try:
             while True:
