@@ -17,8 +17,13 @@ class MCPClient:
     def __init__(self, llm, command="uv", args=None):
         self.llm = llm
         self.server_params = StdioServerParameters(
-            command=command,
-            args=args or ["run", "server.py"],
+            command="uv",
+            args=[
+                "--directory",
+                "/Users/bharatjain/Desktop/ROS-MCP/ros-mcp-server",
+                "run",
+                "server.py"
+            ]
         )
         self.exit_stack = AsyncExitStack()
         self.session = None
@@ -64,7 +69,7 @@ class MCPClient:
         await self.setup()
         try:
             while True:
-                query = input(">>> ")
+                query = input(">")
                 if query.lower() in ("quit", "exit"):
                     break
                 await self.serve_query(query)
@@ -73,7 +78,7 @@ class MCPClient:
 
 
 async def main():
-    llm = get_llm("openai")
+    llm = get_llm("gpt-oss")
     client = MCPClient(llm)
     await client.run()
 
