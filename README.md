@@ -69,7 +69,20 @@ cd ros-mcp-client
 uv sync  # or pip install -e .
 ```
 
-3. Follow the setup guide for the Gemini Live client:
+3. Minimal setup for custom MCP client
+```bash
+./setup.sh
+# Then edit .env and set:
+# - ROS_MCP_SERVER_PATH=/absolute/path/to/ros-mcp-server
+# - LLM_PROVIDER=gpt-oss|openai|anthropic|ollama
+```
+
+4. Run the base client
+```bash
+uv run clients/baseclient.py
+```
+
+5. Follow the setup guide for the Gemini Live client:
    - **[Gemini Live Client](clients/gemini_live/README.md)** - Google Gemini integration
 
 4. Start `rosbridge` on the target robot
