@@ -10,6 +10,7 @@ from mcp.client.stdio import stdio_client
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain.agents import create_agent
 from langchain_cerebras import ChatCerebras
+from llm_store import get_llm
 
 load_dotenv()
 
@@ -61,25 +62,22 @@ class MCPClient:
         await self.exit_stack.aclose()
         print("MCP Client closed.")
 
+    async def run(self): 
+        await self.setup()
+        try:
+            while True:
+                query = input(">>> ")
+                if query.lower() in ("quit", "exit"):
+                    break
+                await self.serve_query(query)
+        finally:
+            await self.close()
+
 
 async def main():
-    llm = ChatCerebras(
-        model="gpt-oss-120b",
-        temperature=0.2,
-        max_tokens=10240,
-        api_key=os.getenv("CEREBRAS_API_KEY")
-    )
-
+    llm = get_llm("openai")
     client = MCPClient(llm)
-    await client.setup()
-    try:
-        while True:
-            query = input(">>> ")
-            if query.lower() in ("quit", "exit"):
-                break
-            await client.serve_query(query)
-    finally:
-        await client.close()
+    await client.run()
 
 
 if __name__ == "__main__":
