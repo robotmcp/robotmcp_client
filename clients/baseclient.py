@@ -9,6 +9,7 @@ from mcp.client.stdio import stdio_client
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain.agents import create_agent
 from llm_store import get_llm
+import os
 
 load_dotenv()
 
@@ -16,14 +17,13 @@ load_dotenv()
 class MCPClient:
     def __init__(self, llm, command="uv", args=None):
         self.llm = llm
+        server_root = os.getenv("ROS_MCP_SERVER_PATH", "")
+        if not server_root:
+            raise RuntimeError("ROS_MCP_SERVER_PATH not found")
+
         self.server_params = StdioServerParameters(
             command="uv",
-            args=[
-                "--directory",
-                "/Users/bharatjain/Desktop/ROS-MCP/ros-mcp-server",
-                "run",
-                "server.py",
-            ],
+            args=["--directory", f"{server_root}", "run", "server.py"],
         )
         self.exit_stack = AsyncExitStack()
         self.session = None
@@ -78,7 +78,8 @@ class MCPClient:
 
 
 async def main():
-    llm = get_llm("gpt-oss")
+    provider = os.getenv("LLM_PROVIDER", "gpt-oss")
+    llm = get_llm(provider)
     client = MCPClient(llm)
     await client.run()
 
