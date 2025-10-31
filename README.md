@@ -82,10 +82,7 @@ uv sync  # or pip install -e .
 uv run clients/baseclient.py
 ```
 
-5. Follow the setup guide for the Gemini Live client:
-   - **[Gemini Live Client](clients/gemini_live/README.md)** - Google Gemini integration
-
-4. Start `rosbridge` on the target robot
+5. Start `rosbridge` on the target robot
 ```bash
 ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 ```  
@@ -147,3 +144,4 @@ Check out the [contributing guidelines](docs/contributing.md) and see issues tag
 
 
 This project is licensed under the [Apache License 2.0](LICENSE).  
+
