@@ -13,6 +13,7 @@ def _get_cerebras_llm(model_name):
         api_key=os.getenv("CEREBRAS_API_KEY"),
     )
 
+
 def get_llm(llm_name):
     llms = {
         "gemini": "google_genai:gemini-2.5-flash-lite",

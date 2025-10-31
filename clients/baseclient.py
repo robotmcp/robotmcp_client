@@ -22,8 +22,8 @@ class MCPClient:
                 "--directory",
                 "/Users/bharatjain/Desktop/ROS-MCP/ros-mcp-server",
                 "run",
-                "server.py"
-            ]
+                "server.py",
+            ],
         )
         self.exit_stack = AsyncExitStack()
         self.session = None
