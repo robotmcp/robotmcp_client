@@ -2,7 +2,7 @@ name: Test Setup Script
 
 on:
   push:
-    branches: [ main, develop, feature/langgraph]
+    branches: [ feature/langgraph]
   pull_request:
     branches: [ main ]
 
