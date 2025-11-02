@@ -19,8 +19,10 @@ def get_llm(llm_name):
         "gemini": "google_genai:gemini-2.5-flash-lite",
         "openai": "openai:gpt-4.1",
         "claude": "anthropic:claude-sonnet-4-5",
+        "llama-scout": _get_cerebras_llm("llama-4-scout-17b-16e-instruct"),
+        "llama-8b": _get_cerebras_llm("llama3.1-8b"),
         "llama": _get_cerebras_llm("llama-3.3-70b"),
-        "qwen": _get_cerebras_llm("qwen-3-32b"),
         "gpt-oss": _get_cerebras_llm("gpt-oss-120b"),
+        "qwen": _get_cerebras_llm("qwen-3-32b"),
     }
     return llms[llm_name]

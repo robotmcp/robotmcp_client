@@ -126,11 +126,30 @@ Multi-provider LLM client with support for:
 - **Anthropic**: Claude Sonnet 4.5
 - **Google Gemini**: Gemini 2.5 Flash Lite
 - **Cerebras** (open-source models):
+  - Llama 4 Scout 17B
+  - Llama 3.1 8B
   - Llama 3.3 70B
+  - OpenAI GPT-OSS 120B
   - Qwen 3 32B
-  - GPT-OSS 120B
 
 **Configuration**: Set `LLM_PROVIDER` in `.env` (see setup.sh)
+
+#### Supported Models
+
+| Provider | Keyword | Parameters |
+|----------|---------|------------|
+| **Proprietary Models** | | |
+| Google Gemini 2.5 Flash Lite | `gemini` | - |
+| OpenAI GPT 4.1 | `openai` | - |
+| Anthropic Claude Sonnet 4.5 | `claude` | - |
+| **Cerebras (Open Source)** 
+| Llama 4 Scout | `llama-scout` | 109B |
+| Llama 3.1 8B | `llama-8b` | 8B |
+| Llama 3.3 70B | `llama` | 70B |
+| OpenAI GPT OSS | `gpt-oss` | 120B |
+| Qwen 3 32B | `qwen` | 32B |
+
+**Usage**: Set `LLM_PROVIDER=<keyword>` in your `.env` file (e.g., `LLM_PROVIDER=llama-scout`)
 
 ### 🎤 **Gemini Live Client** (`clients/gemini_live/`)
 - **Full-featured** Google Gemini integration
