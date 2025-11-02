@@ -25,6 +25,10 @@ It can:
 
 In short, it lets you run an MCP-compatible client that speaks to robots via the MCP interface — useful for testing, local reasoning, or autonomous AI controllers.
 
+<p align="center">
+  <img src="demo.gif" alt="ROS MCP Client Demo"/>
+</p>
+
 ---
 
 ## ⚙️ Key Features of the ROS MCP Client

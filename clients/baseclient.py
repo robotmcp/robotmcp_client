@@ -78,7 +78,8 @@ class MCPClient:
 
 
 async def main():
-    provider = os.getenv("LLM_PROVIDER", "gpt-oss")
+    provider = os.getenv("LLM_PROVIDER")
+    print(f"RUNNING:{provider}")
     llm = get_llm(provider)
     client = MCPClient(llm)
     await client.run()
