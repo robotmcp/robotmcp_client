@@ -211,4 +211,3 @@ This text-only version is perfect for:
 ---
 
 **Note**: This is a simplified version of the full Gemini Live client. For audio/video features, use the main `gemini_client.py` with proper audio setup.
-
