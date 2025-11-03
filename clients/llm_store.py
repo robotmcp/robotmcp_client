@@ -23,6 +23,5 @@ def get_llm(llm_name):
         "llama-8b": _get_groq_llm("llama-3.1-8b-instant"),
         "llama": _get_groq_llm("llama-3.3-70b-versatile"),
         "gpt-oss": _get_groq_llm("openai/gpt-oss-120b"),
-        # "qwen": _get_groq_llm("qwen-3-32b"),
     }
     return llms[llm_name]
