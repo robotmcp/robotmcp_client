@@ -21,7 +21,7 @@ It can:
 - Connect to a `ros-mcp-server` over MCP (stdio or HTTP).
 - Send natural language queries or structured requests to the robot without the need to integrate it with a Desktop LLM client
 - Stream back feedback, sensor data, or responses from the server.
-- Integrate with a multiple LLM providers including OpenAI, Antropic, Gemini, qwen, gpt-oss and other local LLM (Gemini, Ollama, Nvidia NeMo).
+- Integrate with multiple LLM providers including OpenAI, Anthropic, Gemini, and Groq (Llama, GPT-OSS).
 
 In short, it lets you run an MCP-compatible client that speaks to robots via the MCP interface — useful for testing, local reasoning, or autonomous AI controllers.
 
@@ -125,12 +125,11 @@ Multi-provider LLM client with support for:
 - **OpenAI**: GPT-4.1
 - **Anthropic**: Claude Sonnet 4.5
 - **Google Gemini**: Gemini 2.5 Flash Lite
-- **Cerebras** (open-source models):
+- **Groq** (open-source models):
   - Llama 4 Scout 17B
-  - Llama 3.1 8B
-  - Llama 3.3 70B
+  - Llama 3.1 8B Instant
+  - Llama 3.3 70B Versatile
   - OpenAI GPT-OSS 120B
-  - Qwen 3 32B
 
 **Configuration**: Set `LLM_PROVIDER` in `.env` (see setup.sh)
 
@@ -142,12 +141,11 @@ Multi-provider LLM client with support for:
 | Google Gemini 2.5 Flash Lite | `gemini` | - |
 | OpenAI GPT 4.1 | `openai` | - |
 | Anthropic Claude Sonnet 4.5 | `claude` | - |
-| **Cerebras (Open Source)** 
+| **Groq (Open Source)** | | |
 | Llama 4 Scout | `llama-scout` | 109B |
-| Llama 3.1 8B | `llama-8b` | 8B |
-| Llama 3.3 70B | `llama` | 70B |
+| Llama 3.1 8B Instant | `llama-8b` | 8B |
+| Llama 3.3 70B Versatile | `llama` | 70B |
 | OpenAI GPT OSS | `gpt-oss` | 120B |
-| Qwen 3 32B | `qwen` | 32B |
 
 **Usage**: Set `LLM_PROVIDER=<keyword>` in your `.env` file (e.g., `LLM_PROVIDER=llama-scout`)
 

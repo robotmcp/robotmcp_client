@@ -88,14 +88,15 @@ ROS_MCP_SERVER_PATH=
 # - gemini (google_genai:gemini-2.5-flash-lite)
 # - openai (openai:gpt-4.1)
 # - claude (anthropic:claude-sonnet-4-5)
-# - llama (Cerebras: llama-3.3-70b)
-# - qwen  (Cerebras: qwen-3-32b)
-# - gpt-oss (Cerebras: gpt-oss-120b)
+# - llama-scout (Groq: llama-4-scout-17b-16e-instruct)
+# - llama-8b (Groq: llama-3.1-8b-instant)
+# - llama (Groq: llama-3.3-70b-versatile)
+# - gpt-oss (Groq: openai/gpt-oss-120b)
 LLM_PROVIDER=gpt-oss
 
 # API keys (provide only the key matching your chosen LLM_PROVIDER)
-CEREBRAS_API_KEY=
-# Get from: https://inference.cerebras.ai/
+GROQ_API_KEY=
+# Get from: https://console.groq.com/keys
 OPENAI_API_KEY=
 # Get from: https://platform.openai.com/api-keys
 ANTHROPIC_API_KEY=
