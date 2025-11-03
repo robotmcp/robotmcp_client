@@ -30,20 +30,20 @@ class MCPClient:
         self.agent = None
 
     async def setup(self):
-        # enter the stdio_client context
         read_write = await self.exit_stack.enter_async_context(
             stdio_client(self.server_params)
         )
         read, write = read_write
 
-        # enter the ClientSession context
         self.session = await self.exit_stack.enter_async_context(
             ClientSession(read, write)
         )
         await self.session.initialize()
 
         tools = await load_mcp_tools(self.session)
-        self.agent = create_agent(self.llm, tools=tools)
+
+        print(self.llm, type(self.llm))
+        self.agent =  create_agent(self.llm, tools)
 
         print("MCP Client initialized and connected.")
         return self
@@ -51,10 +51,12 @@ class MCPClient:
     async def serve_query(self, query: str):
         try:
             response = await self.agent.ainvoke(
-                {"messages": [{"role": "user", "content": query}]},
+                {"messages": [("user", query)]}, 
                 config={"recursion_limit": 50},
             )
-            final_answer = response["messages"][-1].content
+            
+            final_answer = response.get("messages", [])[-1].content
+            
             print("Response:", final_answer)
             return final_answer
         except Exception as e:
@@ -76,14 +78,11 @@ class MCPClient:
         finally:
             await self.close()
 
-
 async def main():
     provider = os.getenv("LLM_PROVIDER")
-    print(f"RUNNING:{provider}")
     llm = get_llm(provider)
     client = MCPClient(llm)
     await client.run()
-
 
 if __name__ == "__main__":
     asyncio.run(main())

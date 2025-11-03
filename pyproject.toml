@@ -16,6 +16,10 @@ dependencies = [
     "jsonschema>=4.25.1",
     "mcp[cli]>=1.13.0",
     "python-dotenv>=1.0.0",
+    "langchain[anthropic,cerebras,google-genai,openai]==1.0",
+    "langgraph>=1.0.1",
+    "langchain-mcp-adapters>=0.1.12",
+    "langchain-groq>=1.0.0",
 ]
 
 [build-system]
@@ -25,6 +29,3 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 include-package-data = true
 packages = ["clients"]
-
-
-
