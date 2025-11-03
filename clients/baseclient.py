@@ -42,7 +42,6 @@ class MCPClient:
 
         tools = await load_mcp_tools(self.session)
 
-        print(self.llm, type(self.llm))
         self.agent =  create_agent(self.llm, tools)
 
         print("MCP Client initialized and connected.")
