@@ -346,10 +346,17 @@ class TextOnlyClient:
                 except* Exception as exception_group:
                     # Handle any errors that occurred in the task group
                     # Check if it's a CancelledError (normal exit)
-                    if any(isinstance(exc, asyncio.CancelledError) for exc in exception_group.exceptions):
+                    if any(
+                        isinstance(exc, asyncio.CancelledError)
+                        for exc in exception_group.exceptions
+                    ):
                         print("\nGoodbye!")
                     else:
-                        traceback.print_exception(type(exception_group), exception_group, exception_group.__traceback__)
+                        traceback.print_exception(
+                            type(exception_group),
+                            exception_group,
+                            exception_group.__traceback__,
+                        )
 
 
 def main():
