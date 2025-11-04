@@ -343,13 +343,20 @@ class TextOnlyClient:
                         await send_text_task
                         raise asyncio.CancelledError("User requested exit")
 
-                except asyncio.CancelledError:
-                    # Normal exit when user types 'q'
-                    print("\nGoodbye!")
-                    pass
-                except asyncio.ExceptionGroup as exception_group:
+                except* Exception as exception_group:
                     # Handle any errors that occurred in the task group
-                    traceback.print_exception(exception_group)
+                    # Check if it's a CancelledError (normal exit)
+                    if any(
+                        isinstance(exc, asyncio.CancelledError)
+                        for exc in exception_group.exceptions
+                    ):
+                        print("\nGoodbye!")
+                    else:
+                        traceback.print_exception(
+                            type(exception_group),
+                            exception_group,
+                            exception_group.__traceback__,
+                        )
 
 
 def main():

@@ -16,7 +16,7 @@ esac
 
 echo "Detected OS: $PLATFORM"
 
-# Ensure Python 3.10+
+# Ensure Python 3.11+ (Note: uv will auto-download the correct version if needed)
 ensure_python() {
   case "$PLATFORM" in
     mac)
@@ -25,7 +25,7 @@ ensure_python() {
           echo "Installing Python via Homebrew..."
           brew install python@3.11 || brew install python@3.12
         else
-          echo "Install Python 3.10+ from https://www.python.org/downloads/"
+          echo "Install Python 3.11+ from https://www.python.org/downloads/"
         fi
       fi
       ;;
@@ -39,13 +39,13 @@ ensure_python() {
         elif command -v pacman >/dev/null 2>&1; then
           sudo pacman -S --noconfirm python python-virtualenv
         else
-          echo "Install Python 3.10+ using your package manager"
+          echo "Install Python 3.11+ using your package manager"
         fi
       fi
       ;;
     windows)
       if ! command -v python >/dev/null 2>&1 && ! command -v python3 >/dev/null 2>&1; then
-        echo "Install Python 3.10+ from https://www.python.org/downloads/ and add to PATH"
+        echo "Install Python 3.11+ from https://www.python.org/downloads/ and add to PATH"
       fi
       ;;
   esac
