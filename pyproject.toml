@@ -1,5 +1,5 @@
 [project]
-name = "ros-mcp-client"
+name = "robot-mcp-client"
 version = "0.1.0"
 description = "Connect AI Language Models with Robots on ROS using MCP"
 readme = "README.md"

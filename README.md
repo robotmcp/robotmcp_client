@@ -15,7 +15,7 @@ Instead of using a Desktop LLM client, it acts as a bridge that integrates an LL
 
 ## 🧠 What It Does
 
-`ros-mcp-client` implements the LLM-side of the MCP protocol.
+`robot-mcp-client` implements the LLM-side of the MCP protocol.
 
 It can:
 - Connect to a `ros-mcp-server` over MCP (stdio or HTTP).
@@ -64,8 +64,8 @@ The MCP client is version-agnostic (ROS1 or ROS2).
 
 1. Clone the repository  
 ```bash
-git clone https://github.com/robotmcp/ros-mcp-client.git
-cd ros-mcp-client
+git clone https://github.com/robotmcp/robot-mcp-client.git
+cd robot-mcp-client
 ```
 
 2. Install dependencies
@@ -96,7 +96,7 @@ ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 ## 📁 Project Structure
 
 ```
-ros-mcp-client/
+robot-mcp-client/
 ├── .github/
 │   └── workflows/
 │       └── test-setup.yml    # CI for cross-platform setup
