@@ -8,10 +8,14 @@ from mcp.client.stdio import stdio_client
 
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langchain.agents import create_agent
+from langchain_core.messages import HumanMessage
 from llm_store import get_llm
 import os
 
 load_dotenv()
+
+
+MAX_HISTORY = int(os.getenv("MAX_HISTORY", 20))
 
 
 class MCPClient:
@@ -24,10 +28,12 @@ class MCPClient:
         self.server_params = StdioServerParameters(
             command="uv",
             args=["--directory", f"{server_root}", "run", "server.py"],
+            env=os.environ.copy(),
         )
         self.exit_stack = AsyncExitStack()
         self.session = None
         self.agent = None
+        self.history = []
 
     async def setup(self):
         read_write = await self.exit_stack.enter_async_context(
@@ -42,19 +48,46 @@ class MCPClient:
 
         tools = await load_mcp_tools(self.session)
 
-        self.agent = create_agent(self.llm, tools)
+        system_prompt = (
+            "You are a ROS 2 robot operator assistant. "
+            "You have access to MCP tools that communicate with a live ROS 2 system via rosbridge. "
+            "When the user asks you to move the robot or interact with it, act immediately using the available tools — "
+            "do not ask for clarification unless a required parameter is genuinely missing. "
+            "For movement commands, use /cmd_vel with geometry_msgs/msg/Twist: set linear.x for forward/backward, "
+            "angular.z for turning. Reasonable default values: linear.x=0.2 m/s, angular.z=0.5 rad/s. "
+            "Always confirm what action you took after calling a tool."
+        )
+
+        self.agent = create_agent(self.llm, tools, system_prompt=system_prompt)
 
         print("MCP Client initialized and connected.")
         return self
 
     async def serve_query(self, query: str):
         try:
+            self.history.append(HumanMessage(content=query))
             response = await self.agent.ainvoke(
-                {"messages": [("user", query)]},
+                {"messages": self.history},
                 config={"recursion_limit": 50},
             )
 
-            final_answer = response.get("messages", [])[-1].content
+            all_messages = response.get("messages", [])
+            raw = all_messages[-1].content
+            if isinstance(raw, list):
+                final_answer = " ".join(
+                    b["text"]
+                    for b in raw
+                    if isinstance(b, dict) and b.get("type") == "text"
+                )
+            else:
+                final_answer = raw
+            trimmed = list(all_messages)[-MAX_HISTORY:]
+            # Always start on a HumanMessage to avoid orphaned tool_call_ids
+            for i, msg in enumerate(trimmed):
+                if isinstance(msg, HumanMessage):
+                    trimmed = trimmed[i:]
+                    break
+            self.history = trimmed
 
             print("Response:", final_answer)
             return final_answer
@@ -86,4 +119,7 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass

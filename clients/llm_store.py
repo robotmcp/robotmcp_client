@@ -16,7 +16,7 @@ def _get_groq_llm(model_name):
 
 def get_llm(llm_name):
     llms = {
-        "gemini": "google_genai:gemini-2.5-flash-lite",
+        "gemini": "google_genai:gemini-2.5-flash",
         "openai": "openai:gpt-4.1",
         "claude": "anthropic:claude-sonnet-4-5",
         "llama-scout": _get_groq_llm("llama-4-scout-17b-16e-instruct"),
